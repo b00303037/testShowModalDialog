@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="./modal.js"></script>
+  <head>
+    <title>Parent Page</title>
+    <meta charset="utf-8" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      div {
+        display: block;
+        margin-bottom: 16px;
+      }
+      label,
+      input,
+      a {
+        display: block;
+        margin-bottom: 4px;
+        width: 200px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <label>Pass to Dialog:</label>
+      <input type="text" id="pass" />
+    </div>
+
+    <div>
+      <label>Returned from Dialog:</label>
+      <input type="text" id="returned" disabled />
+    </div>
+
+    <div>
+      <input type="button" onclick="openDialog()" value="打開" />
+    </div>
+
+    <div>
+      <label>MDN Web Docs:</label>
+      <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/open"
+        >Window.open()</a
+      >
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showModalDialog"
+        >Window.showModalDialog()</a
+      >
+    </div>
+  </body>
+
+  <script>
+    function openDialog() {
+      const uri = 'dialog.html';
+      const passValue = document.querySelector('#pass').value;
+      const options =
+        'center:yes; dialogHeight:500px; dialogWidth:1020px; help:no; resizable:no;  scroll:yes; status:no';
+
+      const returnValue = window.showModalDialog(uri, passValue, options);
+
+      if (hasShowModalDialog) {
+        handleReturnValue(returnValue);
+      }
+    }
+
+    /**
+     * 將接到 returnValue 後的處理包裝於此函式
+     */
+    function handleReturnValue(returnValue) {
+      document.querySelector('#returned').value = returnValue;
+    }
+  </script>
+</html>

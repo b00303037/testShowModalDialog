@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Child Dialog</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      div {
+        display: block;
+        margin-bottom: 16px;
+      }
+      label,
+      input {
+        display: block;
+        margin-bottom: 4px;
+        width: 200px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <label>Passed from Page:</label>
+      <input type="text" id="passed" disabled />
+    </div>
+
+    <div>
+      <label>Return to Page:</label>
+      <input type="text" id="return" />
+    </div>
+
+    <div>
+      <input type="button" value="返回" onclick="closeDialog()" />
+    </div>
+  </body>
+
+  <script>
+    /**
+     * 判斷對話框是否為 window.open() 所開啟
+     */
+    const hasOpener = window.opener !== undefined;
+
+    const passedValue = hasOpener
+      ? window.opener.dialogArguments
+      : window.dialogArguments;
+
+    document.querySelector('#passed').value = passedValue;
+
+    function closeDialog() {
+      const returnValue = document.querySelector('#return').value;
+
+      if (hasOpener) {
+        window.opener.handleReturnValue(returnValue);
+        window.opener.isOpen = false;
+      } else {
+        window.returnValue = returnValue;
+      }
+
+      window.close();
+    }
+  </script>
+</html>
